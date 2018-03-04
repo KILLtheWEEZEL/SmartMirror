@@ -1,0 +1,104 @@
+body {
+    background-color: black;
+    font-size: 16;
+    font: veranda;
+}
+
+p {
+    color: white;
+}
+
+h3{
+	width: 125px;
+	text-align: center;
+}
+
+div {
+	border: 1px solid #000000;
+
+}
+
+th, td {
+    color: white;
+}
+
+var{
+	font-style: normal;
+}
+ul{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+.price{
+	clear: right;
+	width: 60%;
+}
+
+.symbol{	
+	float: left;
+	width: 40%;
+}
+
+
+.blue{
+	color: blue;
+}
+
+.red{
+	color: red;
+}
+
+.green{
+	color: green;
+}
+
+.mainDiv{
+	/*Set background color, text color, and border for visibility*/
+	background-color: black;
+	color: white;
+
+	border: 2px solid;
+	border-color: white;
+	border-radius: 5px;
+
+	/*Set margin and padding to keep elments off of their containers walls*/
+	padding: 10px;
+	margin: 10px;
+
+
+	position: fixed;
+	overflow: visible;
+	clear:both;
+
+	/*Hide all content by default so we can apply fade in effect later*/
+	display: none;
+}
+
+#stocks, #coins{
+
+}
+
+#topLeft{
+	top: 0;
+	left: 0;
+}
+
+#bottomLeft{
+	bottom: 0;
+	left: 0;
+}
+
+#Money{
+	top: 0;
+	right: 0;
+	text-align: right;
+}
+
+#bottomRight{
+	bottom: 0;
+	right: 0;
+}
