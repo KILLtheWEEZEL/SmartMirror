@@ -4,6 +4,7 @@ $(document).ready(function (){
     weatherUpdater();
     stocksUpdater();
     cryptoUpdater();
+    homeUpdater();
 
     //Once all data is loaded fade in all divs
     $(".mainDiv").fadeIn("slow");
@@ -23,10 +24,11 @@ function timeUpdater(){
         //Build date and time strings for output
         var dateString = d.toDateString();
         var timeString = hours + ":" + minutes + " " + AMPM;
-         
+        
+        
         //Assign formatted string to Date and Time
-        $("#Date").append(dateString);
-        $("#Time").append(timeString);
+        $("#date").append(dateString);
+        $("#time").append(timeString);
 }       
 
 function weatherUpdater(){
@@ -41,8 +43,7 @@ function weatherUpdater(){
     $.ajax({
         url: requestURL,
         success: function(data) {
-            console.log("City: " + data.name);
-
+            console.log(data);
             //Gather data icon identifier then lookup and retrieve proper icon
             var iconCode = data.weather[0].icon;
             var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";  
@@ -52,7 +53,7 @@ function weatherUpdater(){
             $("#weatherIcon").attr('src', iconURL);
             $("#tempHigh").append(data.main.temp_max.toFixed() + '\xB0');
             $("#tempLow").append(data.main.temp_min.toFixed() + '\xB0');
-            $("#tempCurrent").append(data.main.temp.toFixed() + '\xB0');
+            $("#tempNow").append(data.main.temp.toFixed() + '\xB0');
         },
         error: function() {
             console.log("Error connecting to OpenWeatherMap API");
@@ -75,7 +76,6 @@ function stocksUpdater(){
         $.ajax({
             url: requestURL,
             success: function(data) {
-                console.log(data);
                 //Add new list items in respective <ul> elements
                 $("#stockSymbol").append('<li>'+ data.symbol + ":" +'</li>');
 
@@ -108,7 +108,6 @@ function cryptoUpdater(){
         $.ajax({
             url: requestURL,
             success: function(data) {
-                console.log(data);
                 //Add new list items in respective <ul> elements
                 $("#coinSymbol").append('<li>'+ data[0].symbol + ":" +'</li>');
 
@@ -126,5 +125,46 @@ function cryptoUpdater(){
             },
             type: 'GET'
         });
-    })
+    });
 }
+
+function homeUpdater(){
+    //local url for hue bridge
+    var lightUrl = 'http://192.168.0.18/api/zDIuz0F8sL9iRTLRukWid7Cr8xdzFLtCDYRd5ob4/lights'
+
+    //Send ajax request
+    $.ajax({
+        url: lightUrl,
+        success: function(data) {
+            $.each(data, function(index, value){
+                var brightness = (value.state.bri / 254);
+                var bulb = '<td><img style = "opacity:'+ brightness + '" src = "icons/bulb.png"></img></td>';
+
+                switch(value.name.charAt(0)){
+                    case 'B':
+                        $("#bedroom").append(bulb);
+                        break;
+                    case 'D':
+                        $("#dining").append(bulb);
+                        break;
+                    case 'L':
+                        $("#living").append(bulb);
+                        break;
+                    case 'O':
+                        $("#office").append(bulb);
+                        break;
+                    default:
+                        console.log("Unexpected bulb name: " + valu.name);
+                }
+            });
+            
+        },
+        error: function(data) {
+            console.log("Error connecting to Hue API");
+        },
+        type: 'GET'
+    });
+}
+
+
+

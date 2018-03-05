@@ -6,71 +6,72 @@
 	</head>
 
 	<body>
-
-		<div id= "Money" class = "mainDiv">
-			
+		<!-- Money Module -->
+		<div id= "money" class = "mainDiv">
 			<h3>Stocks</h3>
+			
 			<ul id = "stockSymbol" class = "symbol">
 			</ul>
+			
 			<ul id = "stockPrice" class = "price">
 			</ul>
 
 			<h3>Coins</h3>
+			
 			<ul id = "coinSymbol" class = "symbol">
 			</ul>
+			
 			<ul id = "coinPrice" class = "price">
 			</ul>
-
 		</div>
 
-		<div id = "bottomRight" class = "mainDiv">		
-			
+		<!-- Home Module -->
+		<div id = "home" class = "mainDiv">	
+			<h3>Home</h3>	
+			<table style = "width:100%">
+				<tr id = "bedroom">
+					<td><img src = "icons/bed.png"></img></td>
+				</tr>
+
+				<tr id = "dining">
+					<td><img src = "icons/wine.png"></img></td>
+				</tr>
+
+				<tr id = "living">
+					<td><img src = "icons/chair.png"></img></td>
+				</tr>
+
+				<tr id = "office">
+					<td><img src = "icons/laptop.png"></img></td>
+				</tr>
+
+			</table>
 		</div>
 
-		<div id= "topLeft" class = "mainDiv">
+		<!-- Weather Module -->
+		<div id= "weather" class = "mainDiv">
 			
-			<p id = "location"></p>
+			<h3 id = "location"></h3>
 		    <span><img id="weatherIcon" src=""></span> 
 
-			
 			<table style="width:100%">
-				<tr>
-				    <th class = "blue">Low</th>
-				    <th>Now</th> 
-				    <th class = "red">High</th>
-			  	</tr>
 			  	<tr>
-				    <td id = "tempLow" class = "blue"></td>
-				    <td id = "tempCurrent"></td>
-				    <td id = "tempHigh" class = "red"></td>
+				    <th id = "tempLow" class = "blue"></th>
+				    <th id = "tempNow"></th>
+				    <th id = "tempHigh" class = "red"></th>
 			  	</tr>
 			</table>
 
 		</div>
 
-		<div id = "bottomLeft" class = "mainDiv">
-
-			<div id= "TodayView">
-
-				<!--Placeholders for date and time that will be updated using JavaScript-->
-				<p id= "Date"></p>
-				<p id= "Time"></p>
-				
-				<p>Today's Events</p>
-				<ul>
-					<li>Event 1</li>
-					<li>Event 2</li>
-					<li>Event 3</li>
-					<li>Event 4</li>
-					<li>Event 5</li>
-				</ul>
-			</div>
+		<!-- Event Module -->
+		<div id = "events" class = "mainDiv">
+			<!--Placeholders for date and time that will be updated using JavaScript-->
+			<p id= "time"></p>
+			<p id= "date"></p>		
 		</div>
 	</body>	
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="Jquery.js"></script>
-	<!-- Comment out until Liht script works
-	<script type="text/javascript" src="Lights.js"></script>
-	-->
 </html>
