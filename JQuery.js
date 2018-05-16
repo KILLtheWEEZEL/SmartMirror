@@ -143,7 +143,7 @@ function homeUpdater(){
         success: function(data) {
             $.each(data, function(index, value){
                 var brightness = (value.state.bri / 254);
-                var bulb = '<td><img style = "opacity:'+ brightness + '" src = "icons/bulb.png"></img></td>';
+                var bulb = '<td><img style = "opacity:'+ brightness + '" src = "bulb.png"></img></td>';
 
                 switch(value.name.charAt(0)){
                     case 'B':
