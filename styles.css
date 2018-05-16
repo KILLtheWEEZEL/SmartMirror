@@ -80,7 +80,20 @@ img{
 	bottom: 0;
 	left: 0;
 	text-align: right;
-	width: 125px;
+	width: 250px;
+	overflow: auto;
+}
+
+#stockTable{
+	float: left;
+}
+
+#coinTable{
+	float: right;
+}
+
+.table{
+	width: 50%;
 }
 
 #home{
@@ -99,6 +112,8 @@ img{
 
 #tempNow{
 	font-size: 32px;
+	padding: 0px;
+	margin: 0px;
 }
 
 #time{

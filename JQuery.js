@@ -1,13 +1,17 @@
 $(document).ready(function (){
+    
+
     //Get data for all modules
     timeUpdater();
     weatherUpdater();
     stocksUpdater();
-    cryptoUpdater();
+    coinUpdater();
     homeUpdater();
 
     //Once all data is loaded fade in all divs
     $(".mainDiv").fadeIn("slow");
+
+
 });
 
 function timeUpdater(){
@@ -15,6 +19,7 @@ function timeUpdater(){
         var d = new Date();
         var hours = d.getHours();
         var minutes = d.getMinutes();
+        var seconds = d.getSeconds();
         var AMPM = (hours > 12) ? "PM" : "AM";
 
         //Make formatting adjustments to minutes and hours if necessary
@@ -23,7 +28,7 @@ function timeUpdater(){
 
         //Build date and time strings for output
         var dateString = d.toDateString();
-        var timeString = hours + ":" + minutes + " " + AMPM;
+        var timeString = hours + ":" + minutes + ":" + seconds + " " + AMPM;
         
         
         //Assign formatted string to Date and Time
@@ -96,9 +101,9 @@ function stocksUpdater(){
     });
 }
 
-function cryptoUpdater(){
+function coinUpdater(){
     //Create array of coins that user is interested in. 
-    var coins = ['bitcoin', 'ethereum'];
+    var coins = ['bitcoin', 'ethereum', 'litecoin'];
 
     $.each(coins, function (index, value){
         var baseURL = 'https://api.coinmarketcap.com/v1/ticker/'
@@ -110,7 +115,7 @@ function cryptoUpdater(){
             success: function(data) {
                 //Add new list items in respective <ul> elements
                 $("#coinSymbol").append('<li>'+ data[0].symbol + ":" +'</li>');
-
+                console.log(data[0]);
                 //Decide if coin is up or down in the past 24 hours
                 var color;
                 if (data[0].percent_change_24h > 0)
