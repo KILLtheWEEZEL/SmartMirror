@@ -1,0 +1,16 @@
+{
+  "weather": {
+    "apikey": "1234567890",
+    "zipcode": "15206",
+    "units": "imperial",
+  },
+  "stocks": {
+    "symbols": ["AAPL", "NFLX", "TTWO"],
+  },
+  "coins": {
+    "symbols": ["BTC", "LTC", "ETH"],
+  },
+  "home": {
+    "apikey": "1234567890",
+  },
+}

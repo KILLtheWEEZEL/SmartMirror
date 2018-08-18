@@ -1,17 +1,16 @@
 $(document).ready(function (){
-    
+    //Check to see if config.json file exists
+    //If not create file and load setup
 
-    //Get data for all modules
-    timeUpdater();
-    weatherUpdater();
-    stocksUpdater();
-    coinUpdater();
-    homeUpdater();
-
+    //If so continue
+        //Get data for all modules
+        timeUpdater();
+        weatherUpdater();
+        stocksUpdater();
+        coinUpdater();
+        homeUpdater();
     //Once all data is loaded fade in all divs
     $(".mainDiv").fadeIn("slow");
-
-
 });
 
 function timeUpdater(){
@@ -37,6 +36,10 @@ function timeUpdater(){
 }       
 
 function weatherUpdater(){
+    //Get zipcode, apikey, and units from config.json
+    //
+    //
+
     //Build an API URL
     var URLbase = 'http://api.openweathermap.org/data/2.5/weather?zip=';
     var zipCode = 15206;
@@ -68,6 +71,10 @@ function weatherUpdater(){
 }
 
 function stocksUpdater(){
+    //Get stock symbols from config.json
+    //
+    //
+
     //Create array of stocks that user is interested in. 
     var stocks = ['AAPL', 'NFLX', 'TTWO'];
 
@@ -102,6 +109,10 @@ function stocksUpdater(){
 }
 
 function coinUpdater(){
+    //Get coin symbols from config.json
+    //
+    //
+
     //Create array of coins that user is interested in. 
     var coins = ['bitcoin', 'ethereum', 'litecoin'];
 
@@ -134,6 +145,10 @@ function coinUpdater(){
 }
 
 function homeUpdater(){
+    //Get hue api from config.json
+    //
+    //
+
     //local url for hue bridge
     var lightUrl = 'http://192.168.0.18/api/zDIuz0F8sL9iRTLRukWid7Cr8xdzFLtCDYRd5ob4/lights'
 
@@ -143,7 +158,7 @@ function homeUpdater(){
         success: function(data) {
             $.each(data, function(index, value){
                 var brightness = (value.state.bri / 254);
-                var bulb = '<td><img style = "opacity:'+ brightness + '" src = "bulb.png"></img></td>';
+                var bulb = '<td><img style = "opacity:'+ brightness + '" src = "image_bulb.png"></img></td>';
 
                 switch(value.name.charAt(0)){
                     case 'B':
