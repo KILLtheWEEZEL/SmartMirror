@@ -1,10 +1,6 @@
 body {
     background-color: black;
-    font-size: 16;
     font: veranda;
-}
-
-p {
     color: white;
 }
 
@@ -45,10 +41,7 @@ img{
 }
 
 .mainDiv{
-	/*Set background color, text color, and border for visibility*/
-	background-color: black;
-	color: white;
-
+	/*Set border properties for visibility*/
 	border: 2px solid;
 	border-color: white;
 	border-radius: 5px;

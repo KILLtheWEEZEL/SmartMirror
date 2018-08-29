@@ -3,15 +3,21 @@ $(document).ready(function (){
     //If not create file and load setup
 
     //If so continue
-        //Get data for all modules
+        refreshPage();
+
+        // var refreshInterval = setInterval(refreshPage, 10000)
+});
+
+function refreshPage(){
+    //Get data for all modules
         timeUpdater();
         weatherUpdater();
         stocksUpdater();
         coinUpdater();
-        homeUpdater();
+        getHUEIP();
     //Once all data is loaded fade in all divs
     $(".mainDiv").fadeIn("slow");
-});
+}
 
 function timeUpdater(){
         //Variables used for date and time calculation
@@ -23,7 +29,9 @@ function timeUpdater(){
 
         //Make formatting adjustments to minutes and hours if necessary
         hours = (hours > 12) ? (hours-= 12) : hours;
+        hours = 24 ? 12: hours;
         minutes = (minutes < 10) ? ('0' + minutes) : minutes;
+        seconds = (seconds < 10) ? ('0' + seconds) : seconds;
 
         //Build date and time strings for output
         var dateString = d.toDateString();
@@ -36,38 +44,40 @@ function timeUpdater(){
 }       
 
 function weatherUpdater(){
-    //Get zipcode, apikey, and units from config.json
-    //
-    //
-
     //Build an API URL
     var URLbase = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-    var zipCode = 15206;
-    var apiKey = 'c6b836d38005e54e469d7e3046573bc1';
+    var zipCode = config.ZIP_CODE;
+    var apiKey = config.WEATHER_KEY;
     var units = 'imperial';
-    var requestURL = URLbase + zipCode + ',us&units=' + units + '&appid=' + apiKey; 
 
-    //Send ajax request
-    $.ajax({
-        url: requestURL,
-        success: function(data) {
-            console.log(data);
-            //Gather data icon identifier then lookup and retrieve proper icon
-            var iconCode = data.weather[0].icon;
-            var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";  
+    //Check if values are missing from config.js file
+    if(zipCode == null || apiKey == null)
+        alert("Missing values from config.js... unable to load weather module");
+    else{
+        var requestURL = URLbase + zipCode + ',us&units=' + units + '&appid=' + apiKey; 
 
-            //Update html with JSON data
-            $("#location").append(data.name);
-            $("#weatherIcon").attr('src', iconURL);
-            $("#tempHigh").append(data.main.temp_max.toFixed() + '\xB0');
-            $("#tempLow").append(data.main.temp_min.toFixed() + '\xB0');
-            $("#tempNow").append(data.main.temp.toFixed() + '\xB0');
-        },
-        error: function() {
-            console.log("Error connecting to OpenWeatherMap API");
-        },
-        type: 'GET'
-    });
+        //Send ajax request
+        $.ajax({
+            type: 'GET',
+            url: requestURL,
+            success: function(data) {
+                console.log(data);
+                //Gather data icon identifier then lookup and retrieve proper icon
+                var iconCode = data.weather[0].icon;
+                var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";  
+
+                //Update html with JSON data
+                $("#location").append(data.name);
+                $("#weatherIcon").attr('src', iconURL);
+                $("#tempHigh").append(data.main.temp_max.toFixed() + '\xB0');
+                $("#tempLow").append(data.main.temp_min.toFixed() + '\xB0');
+                $("#tempNow").append(data.main.temp.toFixed() + '\xB0');
+            },
+            error: function() {
+                console.log("Error connecting to OpenWeatherMap API: " + apiKey);
+            }
+        });
+    }
 }
 
 function stocksUpdater(){
@@ -144,47 +154,70 @@ function coinUpdater(){
     });
 }
 
-function homeUpdater(){
-    //Get hue api from config.json
-    //
-    //
 
-    //local url for hue bridge
-    var lightUrl = 'http://192.168.0.18/api/zDIuz0F8sL9iRTLRukWid7Cr8xdzFLtCDYRd5ob4/lights'
-
-    //Send ajax request
+function getHUEIP(){
+    //Get Hue Bridge IP Address
     $.ajax({
-        url: lightUrl,
-        success: function(data) {
-            $.each(data, function(index, value){
-                var brightness = (value.state.bri / 254);
-                var bulb = '<td><img style = "opacity:'+ brightness + '" src = "Images/bulb.png"></img></td>';
-
-                switch(value.name.charAt(0)){
-                    case 'B':
-                        $("#bedroom").append(bulb);
-                        break;
-                    case 'D':
-                        $("#dining").append(bulb);
-                        break;
-                    case 'L':
-                        $("#living").append(bulb);
-                        break;
-                    case 'O':
-                        $("#office").append(bulb);
-                        break;
-                    default:
-                        console.log("Unexpected bulb name: " + valu.name);
-                }
-            });
-            
-        },
+        type: 'GET',
+        url: "https://www.meethue.com/api/nupnp",
+        success: connectToBridge,
         error: function(data) {
+            var hueIPAddress = null;
             console.log("Error connecting to Hue API");
-        },
-        type: 'GET'
+        }
     });
 }
+    
+
+
+function connectToBridge(data){
+        console.log("connectToBridge");
+        //Get user ID from config file
+        var hueUserName = config.HUE_USER_ID;
+
+        if (hueUserName == null)
+            alert("Missing values from config.js... unable to load HUE module");
+        else{
+
+            var bridgeIP = data[0].internalipaddress;
+
+            //url for hue bridge api
+            var lightUrl = 'http://' + bridgeIP + '/api/' + hueUserName + '/lights';
+
+            //Send ajax request
+            $.ajax({
+                type: 'GET',
+                url: lightUrl,
+                success: function(data) {
+                    $.each(data, function(index, value){
+                        var brightness = (value.state.bri / 254);
+                        var bulb = '<td><img style = "opacity:'+ brightness + '" src = "Images/bulb.png"></img></td>';
+
+                        switch(value.name.charAt(0)){
+                            case 'B':
+                                $("#bedroom").append(bulb);
+                                break;
+                            case 'D':
+                                $("#dining").append(bulb);
+                                break;
+                            case 'L':
+                                $("#living").append(bulb);
+                                break;
+                            case 'O':
+                                $("#office").append(bulb);
+                                break;
+                            default:
+                                console.log("Unexpected bulb name: " + valu.name);
+                        }
+                    });
+                    
+                },
+                error: function(data) {
+                    console.log("Error connecting to Hue API");
+                }
+            });
+        }
+    }
 
 
 
