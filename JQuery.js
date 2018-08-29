@@ -5,16 +5,20 @@ $(document).ready(function (){
     //If so continue
         refreshPage();
 
-        // var refreshInterval = setInterval(refreshPage, 10000)
+        var refreshInterval = setInterval(refreshPage, 100000)
 });
 
 function refreshPage(){
+    //Clear data before updating
+    $(".clearable").remove();
+
     //Get data for all modules
-        timeUpdater();
-        weatherUpdater();
-        stocksUpdater();
-        coinUpdater();
-        getHUEIP();
+    timeUpdater();
+    weatherUpdater();
+    stocksUpdater();
+    coinUpdater();
+    getHUEIP();
+
     //Once all data is loaded fade in all divs
     $(".mainDiv").fadeIn("slow");
 }
@@ -24,20 +28,22 @@ function timeUpdater(){
         var d = new Date();
         var hours = d.getHours();
         var minutes = d.getMinutes();
-        var seconds = d.getSeconds();
+        // var seconds = d.getSeconds();
         var AMPM = (hours > 12) ? "PM" : "AM";
 
         //Make formatting adjustments to minutes and hours if necessary
         hours = (hours > 12) ? (hours-= 12) : hours;
-        hours = 24 ? 12: hours;
         minutes = (minutes < 10) ? ('0' + minutes) : minutes;
-        seconds = (seconds < 10) ? ('0' + seconds) : seconds;
+        // seconds = (seconds < 10) ? ('0' + seconds) : seconds;
 
         //Build date and time strings for output
         var dateString = d.toDateString();
-        var timeString = hours + ":" + minutes + ":" + seconds + " " + AMPM;
+        var timeString = hours + ":" + minutes + " " + AMPM;
         
-        
+        //Clear date and time before updating
+        $("#date").empty();
+        $("#time").empty();
+
         //Assign formatted string to Date and Time
         $("#date").append(dateString);
         $("#time").append(timeString);
@@ -66,6 +72,12 @@ function weatherUpdater(){
                 var iconCode = data.weather[0].icon;
                 var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";  
 
+                //Clear all weather fields before updating
+                $("#location").empty();
+                $("#tempHigh").empty();
+                $("#tempLow").empty();
+                $("#tempNow").empty();
+
                 //Update html with JSON data
                 $("#location").append(data.name);
                 $("#weatherIcon").attr('src', iconURL);
@@ -87,6 +99,10 @@ function stocksUpdater(){
 
     //Create array of stocks that user is interested in. 
     var stocks = ['AAPL', 'NFLX', 'TTWO'];
+
+    //Clear Stock data before updating
+    $("#stockSymbol").empty();
+    $("#stockPrice").empty();
 
     //Iterate through each stock in array finding JSON then parsing data
     $.each(stocks, function (index, value){
@@ -125,6 +141,10 @@ function coinUpdater(){
 
     //Create array of coins that user is interested in. 
     var coins = ['bitcoin', 'ethereum', 'litecoin'];
+
+    //Clear Coin data before updating
+    $("#coinSymbol").empty();
+    $("#coinPrice").empty();
 
     $.each(coins, function (index, value){
         var baseURL = 'https://api.coinmarketcap.com/v1/ticker/'
@@ -191,7 +211,8 @@ function connectToBridge(data){
                 success: function(data) {
                     $.each(data, function(index, value){
                         var brightness = (value.state.bri / 254);
-                        var bulb = '<td><img style = "opacity:'+ brightness + '" src = "Images/bulb.png"></img></td>';
+                        var bulb = '<td class="clearable"><img style = "opacity:'+ brightness + 
+                                    '" src = "Images/bulb.png"></img></td>';
 
                         switch(value.name.charAt(0)){
                             case 'B':
@@ -207,7 +228,7 @@ function connectToBridge(data){
                                 $("#office").append(bulb);
                                 break;
                             default:
-                                console.log("Unexpected bulb name: " + valu.name);
+                                console.log("Unexpected bulb name: " + value.name);
                         }
                     });
                     
