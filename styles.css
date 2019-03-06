@@ -40,10 +40,18 @@ img{
 	color: green;
 }
 
+.whiteBorder{
+	border: 2px solid white;
+}
+
+.yellowBorder{
+	border: 2px solid yellow;
+}
+
 .mainDiv{
 	/*Set border properties for visibility*/
 	border: 2px solid;
-	border-color: white;
+	/*border-color: white;*/
 	border-radius: 5px;
 
 	/*Set margin and padding to keep elments off of their containers walls*/
