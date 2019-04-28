@@ -57,8 +57,10 @@ function weatherUpdater(){
     let units = 'imperial';
 
     //Check if values are missing from config.js file
-    if(zipCode == null || apiKey == null)
+    if(zipCode == null || apiKey == null){
         alert("Missing values from config.js... unable to load weather module");
+        // $("#weather").addClass('yellowBorder');
+    }
     else{
         let requestURL = URLbase + zipCode + ',us&units=' + units + '&appid=' + apiKey; 
 
