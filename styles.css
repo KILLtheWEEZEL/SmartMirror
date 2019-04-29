@@ -18,6 +18,11 @@ ul{
 img{
 	padding: 2px;
 }
+
+.table{
+	width: 50%;
+}
+
 .price{
 	clear: right;
 	width: 60%;
@@ -50,14 +55,12 @@ img{
 
 .mainDiv{
 	/*Set border properties for visibility*/
-	border: 2px solid;
-	/*border-color: white;*/
+	/*border: 2px solid;*/
 	border-radius: 5px;
 
 	/*Set margin and padding to keep elments off of their containers walls*/
 	padding: 10px;
 	margin: 10px;
-
 
 	position: fixed;
 	overflow: visible;
@@ -91,10 +94,6 @@ img{
 
 #coinTable{
 	float: right;
-}
-
-.table{
-	width: 50%;
 }
 
 #home{
