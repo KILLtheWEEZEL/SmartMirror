@@ -52,8 +52,8 @@ function timeUpdater(){
 function weatherUpdater(){
     //Build an API URL
     let URLbase = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-    let zipCode = config.ZIP_CODE;
-    let apiKey = config.WEATHER_KEY;
+    let zipCode = config.WEATHER.ZIP_CODE;
+    let apiKey = config.WEATHER.WEATHER_KEY;
     let units = 'imperial';
 
     //Check if values are missing from config.js file
@@ -96,11 +96,7 @@ function weatherUpdater(){
 
 function stocksUpdater(){
     //Get stock symbols from config.json
-    //
-    //
-
-    //Create array of stocks that user is interested in. 
-    let stocks = ['AAPL', 'NFLX', 'TTWO'];
+    let stocks = config.MONEY.STOCKS;
 
     //Clear Stock data before updating
     $("#stockSymbol").empty();
@@ -138,11 +134,11 @@ function stocksUpdater(){
 
 function coinUpdater(){
     //Get coin symbols from config.json
-    //
+    let coins = config.MONEY.COINS;
     //
 
     //Create array of coins that user is interested in. 
-    let coins = ['bitcoin', 'ethereum', 'litecoin'];
+    // let coins = ['bitcoin', 'ethereum', 'litecoin'];
 
     //Clear Coin data before updating
     $("#coinSymbol").empty();
@@ -195,7 +191,7 @@ function getHUEIP(){
 function connectToBridge(data){
         console.log("connectToBridge");
         //Get user ID from config file
-        let hueUserName = config.HUE_USER_ID;
+        let hueUserName = config.HOME.HUE_USER_ID;
 
         if (hueUserName == null)
             alert("Missing values from config.js... unable to load HUE module");
