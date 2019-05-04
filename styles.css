@@ -25,13 +25,11 @@ img{
 
 .price {
 	clear: right;
-	width: 55%;
 }
 
 .symbol{
 	text-align: left;
 	float: left;
-	width: 45%;
 }
 
 .blue{
@@ -46,17 +44,9 @@ img{
 	color: green;
 }
 
-.whiteBorder{
-	border: 2px solid white;
-}
-
-.yellowBorder{
-	border: 2px solid yellow;
-}
-
 .mainDiv{
 	/*Set border properties for visibility*/
-	/*border: 2px solid;*/
+	border: 2px solid white;
 	border-radius: 5px;
 
 	/*Set margin and padding to keep elments off of their containers walls*/
@@ -91,14 +81,13 @@ img{
 
 #stockTable{
 	float: left;
-	width: 46%;
-	max-height: 100%;
+	max-width: 46%;
 	padding: 3px;
 }
 
 #coinTable{
 	float: right;
-	width: 46%;
+	max-width: 46%;
 	padding: 3px;
 }
 

@@ -27,14 +27,15 @@ function refreshPage(){
 
 function timeUpdater(){
     try{
-        //variables used for date and time calculation
+        //Get time variables
         let d = new Date();
         let hours = d.getHours();
         let minutes = d.getMinutes();
         // let seconds = d.getSeconds();
-        let AMPM = (hours > 12) ? "PM" : "AM";
+        
 
-        //Format time if necessary 
+        //Format time variables
+        let AMPM = (hours > 12) ? "PM" : "AM";
         hours = (hours > 12) ? (hours -= 12) : hours;
         minutes = (minutes < 10) ? ('0' + minutes) : minutes;
         // seconds = (seconds < 10) ? ('0' + seconds) : seconds;
@@ -46,14 +47,10 @@ function timeUpdater(){
         //Assign formatted string to Date and Time
         $("#events").append('<p id= "time">' + timeString + '</p>');
         $("#events").append('<p id= "date">' + dateString + '</p>');
-
-        //Set border color if successful
-        $("#events").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
         //Set border color if error
         $("#events").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        $("#events").addClass('yellowBorder').removeClass('whiteBorder');
     }
 }       
 
@@ -66,7 +63,7 @@ function weatherUpdater(){
         let units = 'imperial';
         let requestURL = URLbase + zipCode + ',us&units=' + units + '&appid=' + apiKey; 
 
-        //Clear all weather fields before updating
+        //Empty weather div before updating
         $("#weather").empty();
 
         $.ajax({
@@ -98,15 +95,11 @@ function weatherUpdater(){
                 console.log("Error connecting to OpenWeatherMap API: " + apiKey);
             }
         });
-        //Set border color if successful
-        $("#weather").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
-        //Set border color if error
         console.log("Weather Error - Setting Caution");
         $("#weather").append('<h3>Weather</h3>');
         $("#weather").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        $("#weather").addClass('yellowBorder').removeClass('whiteBorder');
     }
 }
 
@@ -152,13 +145,13 @@ function stocksUpdater(){
             });
         });
         //Set border color if successful
-        $("#stockTable").addClass('whiteBorder').removeClass('yellowBorder');
+        // $("#stockTable").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
         //Set border color if error
         console.log("Stock Error - Setting Caution");
         $("#stockTable").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        $("#stockTable").addClass('yellowBorder').removeClass('whiteBorder');
+        // $("#stockTable").addClass('yellowBorder').removeClass('whiteBorder');
     }
 }
 
@@ -201,13 +194,13 @@ function coinUpdater(){
             });
         });
         //Set border color if successful
-        $("#coinTable").addClass('whiteBorder').removeClass('yellowBorder');
+        // $("#coinTable").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
         //Set border color if error
         console.log("Coin Error - Setting Caution");
         $("#coinTable").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        $("#coinTable").addClass('yellowBorder').removeClass('whiteBorder');
+        // $("#coinTable").addClass('yellowBorder').removeClass('whiteBorder');
     }
 }
 
@@ -290,12 +283,12 @@ function connectToHueBridge(data){
         });
 
         //Set border color if successful
-        $("#home").addClass('whiteBorder').removeClass('yellowBorder');
+        // $("#home").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
         //Set border color if error
         console.log("Home Error - Setting Caution");
         $("#home").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        $("#home").addClass('yellowBorder').removeClass('whiteBorder');
+        // $("#home").addClass('yellowBorder').removeClass('whiteBorder');
     } 
 }
