@@ -1,11 +1,15 @@
 $(document).ready(function (){
     //TODO: Check to see if config.json file exists
     
-        //TODO: Loop through all modules; Assign individual refreshInteverals to map
-        let refreshInterval = setInterval(refreshPage, 100000)
+    errorIconHTML = '<img src = "Images/error64.png" class = "error"></img>'
+    
+    //TODO: Loop through all modules; Assign individual refreshInteverals to map
+    
+    let refreshInterval = setInterval(refreshPage, 100000)
 
-        //TODO: Receive map of refreshIntervals and pass to modules
-        refreshPage();
+    //TODO: Receive map of refreshIntervals and pass to modules
+    
+    refreshPage();
 
     //TODO: If not found
 });
@@ -32,7 +36,6 @@ function timeUpdater(){
         let hours = d.getHours();
         let minutes = d.getMinutes();
         // let seconds = d.getSeconds();
-        
 
         //Format time variables
         let AMPM = (hours > 12) ? "PM" : "AM";
@@ -50,7 +53,7 @@ function timeUpdater(){
     }
     catch(err){
         //Set border color if error
-        $("#events").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
+        $("#events").append(errorIconHTML);
     }
 }       
 
@@ -59,7 +62,7 @@ function weatherUpdater(){
         //Build URL for weater API
         let URLbase = 'http://api.openweathermap.org/data/2.5/weather?zip=';
         let zipCode = config.WEATHER.ZIP_CODE;
-        let apiKey = config.WEATHER.WEATHER_KEY;
+        let apiKey = config.WEATHER.API_KEY;
         let units = 'imperial';
         let requestURL = URLbase + zipCode + ',us&units=' + units + '&appid=' + apiKey; 
 
@@ -99,7 +102,7 @@ function weatherUpdater(){
     catch(err){
         console.log("Weather Error - Setting Caution");
         $("#weather").append('<h3>Weather</h3>');
-        $("#weather").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
+        $("#weather").append(errorIconHTML);
     }
 }
 
@@ -144,14 +147,11 @@ function stocksUpdater(){
                 }
             });
         });
-        //Set border color if successful
-        // $("#stockTable").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
         //Set border color if error
         console.log("Stock Error - Setting Caution");
-        $("#stockTable").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        // $("#stockTable").addClass('yellowBorder').removeClass('whiteBorder');
+        $("#stockTable").append(errorIconHTML);
     }
 }
 
@@ -193,14 +193,11 @@ function coinUpdater(){
                 }
             });
         });
-        //Set border color if successful
-        // $("#coinTable").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
         //Set border color if error
         console.log("Coin Error - Setting Caution");
-        $("#coinTable").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        // $("#coinTable").addClass('yellowBorder').removeClass('whiteBorder');
+        $("#coinTable").append(errorIconHTML);
     }
 }
 
@@ -281,14 +278,10 @@ function connectToHueBridge(data){
                 throw "Error connecting to Hue API";
             }
         });
-
-        //Set border color if successful
-        // $("#home").addClass('whiteBorder').removeClass('yellowBorder');
     }
     catch(err){
         //Set border color if error
         console.log("Home Error - Setting Caution");
-        $("#home").append('<img src = "Images/error64.png" style="display:block; margin-left: auto; margin-right: auto;"></img>');
-        // $("#home").addClass('yellowBorder').removeClass('whiteBorder');
+        $("#home").append(errorIconHTML);
     } 
 }
