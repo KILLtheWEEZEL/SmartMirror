@@ -28,17 +28,17 @@ Configuration-------------------------------------------------------------------
     Sign up for a free personal use API key at https://home.openweathermap.org/users/sign_up
     
     In the config.js replace the value of WEATHER_KEY from null to your api Key sourounded by ""
-    ex. WEATHER_KEY : "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q"
+    ex. WEATHER_KEY : "YOUR_WEATHER_KEY"
 
     In the config.js replace the value of ZIP_CODE from null to your zip code sourounded by ""
-    ex. ZIP_CODE : "15206"
+    ex. ZIP_CODE : "12345"
 
   Home:
     Your HUE bridge IP address can be found at https://www.meethue.com/api/nupnp
     Your HUE username is created by following Step 3 at https://www.developers.meethue.com/documentation/getting-started
 
     In the config.js replace the value of HUE_USER_ID from null to your username surrounded by ""
-    ex. HUE_USER_ID : "zDIuz0F8sL9iRTLRukWid7Cr8xdzFLtCDYRd5ob4"
+    ex. HUE_USER_ID : "YOUR_HUE_KEY"
 
 
 Intended Updates------------------------------------------------------------------------------------
